@@ -1,0 +1,23 @@
+- name: Install required dependencies through apt
+  apt:
+    name: python-pexpect
+    state: present
+  become: true
+  
+- name: Download PHAT Dac install script
+  get_url:
+    url: https://get.pimoroni.com/phatdac 
+    dest: /tmp/install_phatdac.sh
+    mode: u=rwx,g=r,o=r
+
+- name: Execute script
+  expect: 
+    command: bash /tmp/install_phatdac.sh
+    responses:
+      (?i)(.*)continue(.*): "y"
+      (?i)(.*)test\syour\ssystem\snow(.*): "N"
+      (?i)(.*)reboot(.*): "N"
+
+- name: Reboot
+  reboot:
+  become: true

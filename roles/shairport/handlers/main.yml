@@ -1,0 +1,7 @@
+---
+- name: enable shairport service
+  systemd:
+    name: shairport-sync
+    daemon_reload: yes
+    state: restarted
+    enabled: yes

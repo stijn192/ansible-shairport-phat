@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - { role: phat, become: no }
+    - { role: shairport, become: yes }
+  

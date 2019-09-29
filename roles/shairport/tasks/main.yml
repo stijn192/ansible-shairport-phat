@@ -1,0 +1,42 @@
+- name: Install required dependencies through apt
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - autoconf
+      - automake
+      - avahi-daemon
+      - git 
+      - libasound2-dev
+      - libavahi-client-dev
+      - libconfig-dev
+      - libdaemon-dev
+      - libpolarssl-dev
+      - libpopt-dev
+      - libsoxr-dev
+      - libssl-dev
+      - libtool
+      - build-essential 
+
+- name: Download Git repository
+  git:
+    repo: https://github.com/mikebrady/shairport-sync.git
+    dest: /opt/shairport
+
+- name: Install shairport
+  script: install_shairport.sh
+  args:
+    chdir: /opt/shairport/
+
+- name: Copy shairport config
+  copy:
+    src: shairport-sync.conf
+    dest: /usr/local/etc/shairport-sync.conf
+    backup: yes
+
+- name: Copy systemctl
+  copy:
+    src: shairport-sync.service
+    dest: /etc/systemd/system
+  notify: enable shairport service
