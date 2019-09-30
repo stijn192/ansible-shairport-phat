@@ -4,13 +4,13 @@
     state: present
   become: true
   
-- name: Download PHAT Dac install script
+- name: Download pHAT Dac install script
   get_url:
     url: https://get.pimoroni.com/phatdac 
     dest: /tmp/install_phatdac.sh
     mode: u=rwx,g=r,o=r
 
-- name: Execute script
+- name: Execute install pHAT DAC script
   expect: 
     command: bash /tmp/install_phatdac.sh
     responses:
