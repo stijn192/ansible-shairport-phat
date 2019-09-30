@@ -6,7 +6,7 @@ After=avahi-daemon.service
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/shairport-sync -a "MyShairport"
+ExecStart=/usr/local/bin/shairport-sync
 Restart=always
 
 [Install]
